@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Jan 2022 pada 10.01
+-- Waktu pembuatan: 13 Jan 2022 pada 18.15
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.12
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `adminapp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_peserta` bigint(20) UNSIGNED NOT NULL,
+  `id_pelatihan` bigint(20) UNSIGNED NOT NULL,
+  `tglbooking` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `id_peserta`, `id_pelatihan`, `tglbooking`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2022-01-20', '2022-01-13 10:14:52', '2022-01-13 10:14:52'),
+(2, 2, 2, '2020-01-20', '2022-01-13 10:15:25', '2022-01-13 10:15:25');
 
 -- --------------------------------------------------------
 
@@ -78,7 +101,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2022_01_05_140439_create_pesertas_table', 12),
 (16, '2022_01_05_140507_create_katagoris_table', 12),
 (17, '2022_01_05_140538_create_pelatihans_table', 12),
-(18, '2022_01_05_204630_create_pelatihans_table', 13);
+(18, '2022_01_05_204630_create_pelatihans_table', 13),
+(19, '2022_01_06_090719_create_bookings_table', 14),
+(20, '2022_01_06_091311_create_bookings_table', 15),
+(21, '2022_01_13_140804_create_bookings_table', 16);
 
 -- --------------------------------------------------------
 
@@ -101,7 +127,8 @@ CREATE TABLE `pelatihans` (
 --
 
 INSERT INTO `pelatihans` (`id`, `id_katagori`, `namapelatihan`, `tglpelatihan`, `lokasipelatihan`, `created_at`, `updated_at`) VALUES
-(1, 1, 'class', '2022-01-06', 'Jakarta Timur', '2022-01-05 15:29:20', '2022-01-06 02:00:14');
+(1, 1, 'class', '2022-01-06', 'Jakarta Timur', '2022-01-05 15:29:20', '2022-01-06 02:00:14'),
+(2, 2, 'web', '2020-01-20', 'Malang', '2022-01-13 10:13:31', '2022-01-13 10:13:31');
 
 -- --------------------------------------------------------
 
@@ -142,7 +169,8 @@ CREATE TABLE `pesertas` (
 --
 
 INSERT INTO `pesertas` (`id`, `namapeserta`, `email`, `jeniskelamin`, `alamat`, `created_at`, `updated_at`) VALUES
-(1, 'satya', 'satyapradana98@gmail.com', 'Laki-laki', 'Malang', '2022-01-05 10:44:04', '2022-01-05 10:44:21');
+(1, 'satya', 'satyapradana98@gmail.com', 'Laki-laki', 'Malang', '2022-01-05 10:44:04', '2022-01-05 10:44:21'),
+(2, 'ahmad', 'ahmad@gmail.com', 'Laki-laki', 'Malang', '2022-01-13 10:14:08', '2022-01-13 10:14:08');
 
 -- --------------------------------------------------------
 
@@ -169,6 +197,14 @@ INSERT INTO `users` (`id`, `name`, `password`, `remember_token`, `created_at`, `
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookings_id_peserta_foreign` (`id_peserta`),
+  ADD KEY `bookings_id_pelatihan_foreign` (`id_pelatihan`);
 
 --
 -- Indeks untuk tabel `katagoris`
@@ -214,6 +250,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `katagoris`
 --
 ALTER TABLE `katagoris`
@@ -223,13 +265,13 @@ ALTER TABLE `katagoris`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelatihans`
 --
 ALTER TABLE `pelatihans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -241,7 +283,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `pesertas`
 --
 ALTER TABLE `pesertas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -252,6 +294,13 @@ ALTER TABLE `users`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `bookings`
+--
+ALTER TABLE `bookings`
+  ADD CONSTRAINT `bookings_id_pelatihan_foreign` FOREIGN KEY (`id_pelatihan`) REFERENCES `pelatihans` (`id`),
+  ADD CONSTRAINT `bookings_id_peserta_foreign` FOREIGN KEY (`id_peserta`) REFERENCES `pesertas` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `pelatihans`

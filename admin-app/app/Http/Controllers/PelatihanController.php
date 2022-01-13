@@ -112,6 +112,6 @@ class PelatihanController extends Controller
     {
         $post = Pelatihan::find($id);
         $post -> delete();
-        return back()->with('success','Peserta berhasil didelete');
+        return back()->with('success','Pelatihan berhasil didelete');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\KatagoriController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -24,6 +25,7 @@ route::get('/logout',[LoginController::class,'logout'])->name('logout');
 Route::resource('posts',PesertaController::class);
 Route::resource('katagoris',KatagoriController::class);
 Route::resource('pelatihans',PelatihanController::class);
+Route::resource('bookings',BookingController::class);
 
 Route::get('/app', function () {
     return view('layouts.app');

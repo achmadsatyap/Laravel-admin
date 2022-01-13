@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-6">
           <div class="col-12">
-          <a href="{{url('pelatihans/create')}}"><button  type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i>Tambah Pelatihan</button></a>
+          <a href="{{url('bookings/create')}}"><button  type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Booking </button></a>
           </div>
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -18,10 +18,9 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Nama Katagori</th>
+                    <th>Nama Peserta</th>
                     <th>Nama Pelatihan</th>
-                    <th>Tanggal Pelatihan</th>
-                    <th>Lokasi Pelatihan</th>
+                    <th>Tanggal Booking</th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -30,19 +29,23 @@
                   @foreach($posts as $post)
                     <tr>
                       <td>{{$post -> id }}</td>
-                      <td>{{$post-> katagori -> namakatagori }}</td>
-                      <td>{{$post -> namapelatihan }}</td>
-                      <td>{{$post -> tglpelatihan }}</td>
-                      <td>{{$post ->  lokasipelatihan  }}</td>
+                      <td>{{$post-> peserta -> namapeserta }}</td>
+                      <td>{{$post-> pelatihan -> namapelatihan }}</td>
+                      <td>{{$post -> tglbooking }}</td>
                       <td>
-                      <a class="btn btn-info btn-sm" href="{{ route('pelatihans.edit', $post->id ) }}">
+                      <a class="btn btn-info btn-sm" href="{{ route('bookings.edit', $post->id ) }}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
+                          <a class="btn btn-primary btn-sm" href="{{ route('bookings.show', $post->id ) }}">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
                           </td>
                           <td>
-                          <form method="POST" action="{{ url('pelatihans', $post->id ) }}">
+                          <form method="POST" action="{{ url('bookings', $post->id ) }}">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm">Delete</button>
@@ -58,11 +61,10 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                  <th>ID</th>
-                    <th>Nama Katagori</th>
+                    <th>ID</th>
+                    <th>Nama Peserta</th>
                     <th>Nama Pelatihan</th>
-                    <th>Tanggal Pelatihan</th>
-                    <th>Lokasi Pelatihan</th>
+                    <th>Tanggal Booking</th>
                     <th></th>
                     <th></th>
                   </tr>

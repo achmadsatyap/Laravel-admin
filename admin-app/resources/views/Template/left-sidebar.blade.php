@@ -28,6 +28,12 @@
             <p>Pelatihan</p>
             </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('bookings')}}" class="nav-link">
+            <i class=""></i>
+            <p>Booking</p>
+            </a>
+        </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

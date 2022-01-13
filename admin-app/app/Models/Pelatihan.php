@@ -15,4 +15,7 @@ class Pelatihan extends Model
     public function katagori() {
         return $this -> belongsTo(Katagori::class,'id_katagori');
     }
+    public function booking(){
+        return $this -> hasMany(Booking::class);
+    }
 }

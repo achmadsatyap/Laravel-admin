@@ -13,4 +13,9 @@ class Peserta extends Model
     protected $fillable = [
         'namapeserta', 'email', 'jeniskelamin', 'alamat'
     ];
+
+    public function booking(){
+        return $this -> hasMany(Booking::class);
+    }
+
 }
